@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "743627891689",
+    "firebase_url": "https://bitcointicker-15e9f.firebaseio.com",
+    "project_id": "bitcointicker-15e9f",
+    "storage_bucket": "bitcointicker-15e9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743627891689:android:1a832b4ed85be3b18f2178",
+        "android_client_info": {
+          "package_name": "net.resulbal.bitcointicker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "743627891689-e10a06gl82q9klo9ng6oh63trhj54uoe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.resulbal.bitcointicker",
+            "certificate_hash": "003b75d45d4d0619f6b320266596330fc9cc8666"
+          }
+        },
+        {
+          "client_id": "743627891689-toi0r9r7tcamquftkfb57jonp1cibch6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJoyy1YPWhCyHqKEVn3ofWJgg6U-Yz1Ro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "743627891689-toi0r9r7tcamquftkfb57jonp1cibch6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
