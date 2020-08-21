@@ -26,3 +26,15 @@ suspend inline fun <T> Deferred<T>.toResult(): ApiResult<T> {
     }
   }
 }
+
+suspend inline fun <T> List<T>.toResult(): ApiResult<List<T>> {
+  val list = this
+  return withContext(Dispatchers.IO) {
+    try {
+      ApiResult.Success(list)
+    } catch (e: Exception) {
+      e.printStackTrace()
+      ApiResult.Failure
+    }
+  }
+}

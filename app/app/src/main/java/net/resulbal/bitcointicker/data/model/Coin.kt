@@ -13,8 +13,11 @@ import net.resulbal.bitcointicker.ui.base.BaseState
 data class Coin(
   @field:SerializedName("id") val id: String,
   @field:SerializedName("symbol") val symbol: String,
-  @field:SerializedName("name") val name: String
-): BaseState
+  @field:SerializedName("name") val name: String,
+  val favorite: Boolean = false
+): BaseState {
+  constructor(): this("", "", "", false)
+}
 
 class CoinDiffCallback: DiffUtil.ItemCallback<Coin>() {
   override fun areItemsTheSame(oldItem: Coin, newItem: Coin): Boolean =

@@ -44,7 +44,7 @@
         android:clickable="true"
         android:contentDescription="@string/app_name"
         android:padding="@dimen/spacing_normal"
-        android:src="@drawable/ic_bookmark_off"
+        android:src="@drawable/selector_bookmark_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

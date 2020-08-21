@@ -1,14 +1,14 @@
-package net.resulbal.bitcointicker.ui.coinList
+package net.resulbal.bitcointicker.ui.favorite
 
 import net.resulbal.bitcointicker.data.model.Coin
 import net.resulbal.bitcointicker.ui.base.BaseEvent
 import net.resulbal.bitcointicker.ui.base.BaseView
 
 /**
- * Created by rslbl on 2020-08-20.
+ * Created by rslbl on 2020-08-21.
  */
 
-interface CoinListView {
+interface FavoriteView {
 
   interface View: BaseView {
 
@@ -21,5 +21,4 @@ interface CoinListView {
 
     fun updateFavorite(coin: Coin)
   }
-
 }

@@ -5,6 +5,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import net.resulbal.bitcointicker.ui.coinList.CoinListViewModel
+import net.resulbal.bitcointicker.ui.favorite.FavoriteViewModel
 
 /**
  * Created by rslbl on 2020-08-20.
@@ -17,4 +18,9 @@ abstract class ViewModelModule {
   @IntoMap
   @ViewModelKey(CoinListViewModel::class)
   abstract fun coinListViewModel(coinListViewModel: CoinListViewModel): ViewModel
+
+  @Binds
+  @IntoMap
+  @ViewModelKey(FavoriteViewModel::class)
+  abstract fun favoriteistViewModel(favoriteViewModel: FavoriteViewModel): ViewModel
 }

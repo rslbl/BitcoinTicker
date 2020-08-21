@@ -11,5 +11,5 @@ sealed class CoinListEvent: BaseEvent {
 
   class GoToCoin(val coin: Coin): CoinListEvent()
 
-  class Bookmark(val coin: Coin): CoinListEvent()
+  class Update(val coin: Coin): CoinListEvent()
 }

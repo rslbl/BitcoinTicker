@@ -1,4 +1,4 @@
-package net.resulbal.bitcointicker.ui.coinList
+package net.resulbal.bitcointicker.ui.favorite
 
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +12,13 @@ import net.resulbal.bitcointicker.extensions.inflate
 import net.resulbal.bitcointicker.ui.base.BaseListAdapter
 import net.resulbal.bitcointicker.ui.base.BaseViewHolder
 import net.resulbal.bitcointicker.ui.base.EventListener
-import net.resulbal.bitcointicker.ui.coinList.CoinListAdapter.ViewHolder
+import net.resulbal.bitcointicker.ui.favorite.FavoriteAdapter.ViewHolder
 
 /**
- * Created by rslbl on 2020-08-20.
+ * Created by rslbl on 2020-08-21.
  */
 
-class CoinListAdapter(private val listener: EventListener):
+class FavoriteAdapter(private val listener: EventListener):
   BaseListAdapter<Coin, ViewHolder>(CoinDiffCallback()) {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -27,8 +27,8 @@ class CoinListAdapter(private val listener: EventListener):
   class ViewHolder(itemView: View, listener: EventListener): BaseViewHolder<Coin>(itemView) {
 
     init {
-      itemView.setOnClickListener { listener(CoinListEvent.GoToCoin(item)) }
-      bookmarkIcon.setOnClickListener { listener(CoinListEvent.Update(item)) }
+      itemView.setOnClickListener { listener(FavoriteEvent.GoToCoin(item)) }
+      bookmarkIcon.setOnClickListener { listener(FavoriteEvent.Update(item)) }
     }
 
     override fun bind(item: Coin) {

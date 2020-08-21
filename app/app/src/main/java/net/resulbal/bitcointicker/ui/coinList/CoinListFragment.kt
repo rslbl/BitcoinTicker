@@ -31,9 +31,7 @@ class CoinListFragment: BaseFragment(), CoinListView.View {
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.fragment_coin_list, container, false)
-  }
+  ): View? = inflater.inflate(R.layout.fragment_coin_list, container, false)
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
@@ -64,8 +62,8 @@ class CoinListFragment: BaseFragment(), CoinListView.View {
 
   override fun dispatch(event: BaseEvent) {
     when (event) {
-      is CoinListEvent.GoToCoin -> Timber.e("GoToCoins: ${event.coin.name}")
-      is CoinListEvent.Bookmark -> viewModel.updateFavorite(event.coin)
+      is CoinListEvent.GoToCoin -> Timber.e("GoToCoin: ${event.coin.name}")
+      is CoinListEvent.Update -> viewModel.updateFavorite(event.coin)
     }
   }
 

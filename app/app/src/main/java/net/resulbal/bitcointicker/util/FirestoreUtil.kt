@@ -1,10 +1,13 @@
 package net.resulbal.bitcointicker.util
 
+import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import net.resulbal.bitcointicker.Constants.FAVORITES
 import net.resulbal.bitcointicker.Constants.USERS
+import net.resulbal.bitcointicker.data.model.Coin
 import net.resulbal.bitcointicker.data.model.User
 import timber.log.Timber
 
@@ -23,6 +26,8 @@ object FirestoreUtil {
           ?: throw NullPointerException("UID is null")
       }"
     )
+
+  fun removeListener(registration: ListenerRegistration) = registration.remove()
 
   fun initCurrentUserIfFirstTime(onComplete: () -> Unit) {
     currentUserDocRef.get().addOnSuccessListener { documentSnapshot ->
@@ -53,16 +58,41 @@ object FirestoreUtil {
     currentUserDocRef.update(userFieldMap).addOnSuccessListener { onSuccess() }
   }
 
-  fun updateFavorites(coinId: String, onComplete: () -> Unit) {
+  fun addOrDeleteFavorites(coin: Coin, onComplete: () -> Unit) {
     currentUserDocRef.collection(FAVORITES)
-      .document(coinId)
+      .document(coin.id)
       .get()
       .addOnSuccessListener {
         if (it.exists()) {
-          Timber.e("Document was here")
+          currentUserDocRef.collection(FAVORITES)
+            .document(coin.id)
+            .delete()
+            .addOnSuccessListener { onComplete() }
         } else {
-          Timber.e("Document not found")
+          val newCoin = coin.copy(favorite = !coin.favorite)
+          currentUserDocRef.collection(FAVORITES)
+            .document(coin.id)
+            .set(newCoin)
+            .addOnSuccessListener { onComplete() }
         }
+      }
+  }
+
+  fun getFavoriteList(onListen: (List<Coin>) -> Unit): ListenerRegistration {
+    return currentUserDocRef.collection(FAVORITES)
+      .addSnapshotListener { querySnapshot, firestoreException ->
+        if (firestoreException != null) {
+          Timber.e("Firestore exception: $firestoreException")
+          return@addSnapshotListener
+        }
+
+        val items = mutableListOf<Coin>()
+        querySnapshot?.documents?.forEach { documentSnapshot ->
+          documentSnapshot.toObject(Coin::class.java)?.let { coin ->
+            items.add(coin)
+          }
+        }
+        onListen(items)
       }
   }
 
