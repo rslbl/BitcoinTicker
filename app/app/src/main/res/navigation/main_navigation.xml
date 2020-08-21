@@ -29,7 +29,7 @@
   <fragment
       android:id="@+id/coinDetailFragment"
       android:name="net.resulbal.bitcointicker.ui.coinDetail.CoinDetailFragment"
-      android:label="fragment_coin_detail"
+      android:label="@string/detail"
       tools:layout="@layout/fragment_coin_detail">
     <argument
         android:name="state"

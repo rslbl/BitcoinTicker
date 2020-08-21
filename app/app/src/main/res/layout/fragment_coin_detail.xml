@@ -1,9 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.coinDetail.CoinDetailFragment">
 
-</FrameLayout>
+  <com.google.android.material.card.MaterialCardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/spacing_normal">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <ImageView
+          android:id="@+id/coinImage"
+          android:layout_width="@dimen/image_size"
+          android:layout_height="@dimen/image_size"
+          android:layout_marginStart="@dimen/spacing_normal"
+          android:layout_marginTop="@dimen/spacing_normal"
+          android:layout_marginBottom="@dimen/spacing_normal"
+          android:contentDescription="@string/app_name"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:background="@tools:sample/avatars"/>
+
+      <com.google.android.material.textview.MaterialTextView
+          android:id="@+id/nameText"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/spacing_normal"
+          android:layout_marginEnd="@dimen/spacing_normal"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+          android:textStyle="bold"
+          app:layout_constraintBottom_toTopOf="@id/priceText"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/coinImage"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:text="@tools:sample/full_names"/>
+
+      <com.google.android.material.textview.MaterialTextView
+          android:id="@+id/priceText"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/spacing_normal"
+          android:layout_marginEnd="@dimen/spacing_normal"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+          app:layout_constraintBottom_toTopOf="@id/hashText"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/coinImage"
+          app:layout_constraintTop_toBottomOf="@+id/nameText"
+          tools:text="@tools:sample/cities"/>
+
+      <com.google.android.material.textview.MaterialTextView
+          android:id="@+id/hashText"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/spacing_normal"
+          android:layout_marginEnd="@dimen/spacing_normal"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/coinImage"
+          app:layout_constraintTop_toBottomOf="@+id/priceText"
+          tools:text="@tools:sample/cities"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </com.google.android.material.card.MaterialCardView>
+
+  <com.google.android.material.card.MaterialCardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/spacing_normal"
+      android:layout_marginEnd="@dimen/spacing_normal">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/descriptionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_normal"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        tools:text="@tools:sample/lorem"/>
+
+  </com.google.android.material.card.MaterialCardView>
+
+  <com.google.android.material.card.MaterialCardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/spacing_normal"
+      android:layout_marginTop="@dimen/spacing_normal"
+      android:layout_marginEnd="@dimen/spacing_normal">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/percentageText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_normal"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        tools:text="@tools:sample/lorem"/>
+
+  </com.google.android.material.card.MaterialCardView>
+
+  <com.google.android.material.button.MaterialButton
+      android:id="@+id/favoriteButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/spacing_normal"
+      android:text="@string/add_favorite"/>
+
+</LinearLayout>

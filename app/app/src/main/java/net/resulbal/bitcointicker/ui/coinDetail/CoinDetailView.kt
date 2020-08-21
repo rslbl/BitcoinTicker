@@ -15,6 +15,6 @@ interface CoinDetailView {
 
   interface ViewModel {
 
-    fun setData(coinDetail: CoinDetail)
+    fun getDetail(coinDetail: CoinDetail)
   }
 }

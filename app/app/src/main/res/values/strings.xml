@@ -8,4 +8,6 @@
   <string name="profile">Profile</string>
   <string name="logout">Logout</string>
   <string name="detail">Detail</string>
+  <string name="add_favorite">Add Favorite</string>
+  <string name="remove_favorite">Remove Favorite</string>
 </resources>
