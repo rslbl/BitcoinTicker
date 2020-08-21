@@ -8,15 +8,17 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_favorite.favoriteList
 import kotlinx.android.synthetic.main.fragment_favorite.shimmerLayout
 import net.resulbal.bitcointicker.R
+import net.resulbal.bitcointicker.data.model.CoinDetail
 import net.resulbal.bitcointicker.data.source.ApiResult
 import net.resulbal.bitcointicker.di.ViewModelFactory
 import net.resulbal.bitcointicker.ui.base.BaseEvent
 import net.resulbal.bitcointicker.ui.base.BaseFragment
+import net.resulbal.bitcointicker.ui.coinList.CoinListFragmentDirections
 import net.resulbal.bitcointicker.util.addItemSpacing
-import timber.log.Timber
 import javax.inject.Inject
 
 class FavoriteFragment: BaseFragment(), FavoriteView.View {
@@ -48,6 +50,10 @@ class FavoriteFragment: BaseFragment(), FavoriteView.View {
     viewModel.favoriteList?.observe(requireActivity(), Observer { result ->
       when (result) {
         is ApiResult.Loading -> showShimmer()
+        is ApiResult.Empty -> {
+          hideShimmer()
+          favoriteAdapter.submitList(result.data)
+        }
         is ApiResult.Failure -> {
           hideShimmer()
           Toast.makeText(requireContext(), "Something wrong...", Toast.LENGTH_SHORT).show()
@@ -62,7 +68,10 @@ class FavoriteFragment: BaseFragment(), FavoriteView.View {
 
   override fun dispatch(event: BaseEvent) {
     when (event) {
-      is FavoriteEvent.GoToCoin -> Timber.e("GoToCoin: ${event.coin.name}")
+      is FavoriteEvent.GoToCoin -> {
+        val state = CoinDetail(id = event.coin.id)
+        findNavController().navigate(CoinListFragmentDirections.goToCoinDetail(state))
+      }
       is FavoriteEvent.Update -> viewModel.updateFavorite(event.coin)
     }
   }

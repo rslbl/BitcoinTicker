@@ -4,12 +4,10 @@ import kotlinx.android.parcel.Parcelize
 import net.resulbal.bitcointicker.ui.base.BaseState
 
 /**
- * Created by rslbl on 2020-08-20.
+ * Created by rslbl on 2020-08-21.
  */
 
 @Parcelize
-data class User(
-  val name: String
-): BaseState {
-  constructor(): this("")
-}
+data class CoinDetail(
+  val id: String? = null,
+): BaseState

@@ -3,6 +3,7 @@ package net.resulbal.bitcointicker.di
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import net.resulbal.bitcointicker.ui.SplashActivity
+import net.resulbal.bitcointicker.ui.login.LoginActivity
 import net.resulbal.bitcointicker.ui.main.MainActivity
 
 /**
@@ -17,4 +18,7 @@ abstract class ActivityModule {
 
   @ContributesAndroidInjector
   abstract fun mainActivity(): MainActivity
+
+  @ContributesAndroidInjector
+  abstract fun loginActivity(): LoginActivity
 }

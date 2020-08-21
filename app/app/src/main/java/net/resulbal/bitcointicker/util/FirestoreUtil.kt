@@ -1,6 +1,7 @@
 package net.resulbal.bitcointicker.util
 
 import android.content.Context
+import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -32,11 +33,7 @@ object FirestoreUtil {
   fun initCurrentUserIfFirstTime(onComplete: () -> Unit) {
     currentUserDocRef.get().addOnSuccessListener { documentSnapshot ->
       if (!documentSnapshot.exists()) {
-        val user = User(
-          name = FirebaseAuth.getInstance().currentUser?.displayName ?: "",
-          bio = "",
-          profilePicture = null
-        )
+        val user = User(name = FirebaseAuth.getInstance().currentUser?.displayName ?: "")
         currentUserDocRef.set(user).addOnSuccessListener { onComplete() }
       } else {
         onComplete()
@@ -52,10 +49,26 @@ object FirestoreUtil {
   ) {
     val userFieldMap = mutableMapOf<String, Any>()
     if (name.isNotBlank()) userFieldMap["name"] = name
-    if (bio.isNotBlank()) userFieldMap["bio"] = bio
-    if (profilePicture != null) userFieldMap["profilePicture"] = profilePicture
 
     currentUserDocRef.update(userFieldMap).addOnSuccessListener { onSuccess() }
+  }
+
+  fun getProfile(onSuccess: (User) -> Unit) {
+    currentUserDocRef
+      .get()
+      .addOnSuccessListener { documentSnapshot ->
+        if (!documentSnapshot.exists()) {
+          onSuccess(User(""))
+        } else {
+          documentSnapshot.toObject(User::class.java)?.let { user -> onSuccess(user) }
+        }
+      }
+  }
+
+  fun logout(context: Context, onSuccess: () -> Unit) {
+    AuthUI.getInstance()
+      .signOut(context)
+      .addOnSuccessListener { onSuccess() }
   }
 
   fun addOrDeleteFavorites(coin: Coin, onComplete: () -> Unit) {

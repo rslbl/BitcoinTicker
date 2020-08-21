@@ -8,15 +8,16 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_coin_list.coinList
 import kotlinx.android.synthetic.main.fragment_coin_list.shimmerLayout
 import net.resulbal.bitcointicker.R
+import net.resulbal.bitcointicker.data.model.CoinDetail
 import net.resulbal.bitcointicker.data.source.ApiResult
 import net.resulbal.bitcointicker.di.ViewModelFactory
 import net.resulbal.bitcointicker.ui.base.BaseEvent
 import net.resulbal.bitcointicker.ui.base.BaseFragment
 import net.resulbal.bitcointicker.util.addItemSpacing
-import timber.log.Timber
 import javax.inject.Inject
 
 class CoinListFragment: BaseFragment(), CoinListView.View {
@@ -62,7 +63,10 @@ class CoinListFragment: BaseFragment(), CoinListView.View {
 
   override fun dispatch(event: BaseEvent) {
     when (event) {
-      is CoinListEvent.GoToCoin -> Timber.e("GoToCoin: ${event.coin.name}")
+      is CoinListEvent.GoToCoin -> {
+        val state = CoinDetail(id = event.coin.id)
+        findNavController().navigate(CoinListFragmentDirections.goToCoinDetail(state))
+      }
       is CoinListEvent.Update -> viewModel.updateFavorite(event.coin)
     }
   }

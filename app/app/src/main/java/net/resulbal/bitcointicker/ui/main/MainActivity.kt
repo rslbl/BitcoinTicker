@@ -15,7 +15,11 @@ import net.resulbal.bitcointicker.ui.base.BaseActivity
 class MainActivity: BaseActivity() {
 
   private lateinit var navController: NavController
-  private val fragmentList = setOf(R.id.coinListFragment, R.id.favoriteFragment)
+  private val fragmentList = setOf(
+    R.id.coinListFragment,
+    R.id.favoriteFragment,
+    R.id.profileFragment
+  )
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

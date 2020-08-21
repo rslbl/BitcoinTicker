@@ -6,7 +6,7 @@ import kotlinx.coroutines.launch
 import net.resulbal.bitcointicker.data.model.Coin
 import net.resulbal.bitcointicker.data.source.ApiResult
 import net.resulbal.bitcointicker.data.source.BitcoinRepository
-import net.resulbal.bitcointicker.extensions.updated
+import net.resulbal.bitcointicker.data.source.toResult
 import net.resulbal.bitcointicker.ui.base.BaseViewModel
 import net.resulbal.bitcointicker.util.FirestoreUtil
 import javax.inject.Inject
@@ -30,7 +30,7 @@ class FavoriteViewModel @Inject constructor(
   override fun start() {
     launch {
       _favoriteList.postValue(ApiResult.Loading)
-      FirestoreUtil.getFavoriteList { _favoriteList.postValue(ApiResult.Success(it)) }
+      FirestoreUtil.getFavoriteList { _favoriteList.postValue(it.toResult()) }
     }
   }
 
@@ -39,7 +39,7 @@ class FavoriteViewModel @Inject constructor(
       _favoriteList.value?.let { result ->
         when (result) {
           is ApiResult.Success -> {
-            _favoriteList.postValue(ApiResult.Success(result.data))
+            _favoriteList.postValue(result.data.toResult())
           }
         }
       }
