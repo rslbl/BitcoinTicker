@@ -69,7 +69,7 @@ class FavoriteFragment: BaseFragment(), FavoriteView.View {
   override fun dispatch(event: BaseEvent) {
     when (event) {
       is FavoriteEvent.GoToCoin -> {
-        val state = CoinDetail(id = event.coin.id)
+        val state = CoinDetail(id = event.coin.id, favorite = true)
         findNavController().navigate(CoinListFragmentDirections.goToCoinDetail(state))
       }
       is FavoriteEvent.Update -> viewModel.updateFavorite(event.coin)

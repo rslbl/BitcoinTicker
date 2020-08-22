@@ -9,35 +9,35 @@
 
   <ImageView
       android:id="@+id/profilePicture"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_width="@dimen/image_size"
+      android:layout_height="@dimen/image_size"
       android:layout_margin="@dimen/spacing_normal"
       android:contentDescription="@string/app_name"
       android:padding="@dimen/spacing_normal"
-      android:src="@drawable/ic_person"
+      android:src="@drawable/profile_picture"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"/>
 
   <com.google.android.material.textview.MaterialTextView
       android:id="@+id/nameText"
-      android:layout_width="0dp"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/spacing_normal"
       android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
       android:textStyle="bold"
-      app:layout_constraintBottom_toBottomOf="@id/profilePicture"
-      app:layout_constraintStart_toEndOf="@id/profilePicture"
-      app:layout_constraintTop_toTopOf="@id/profilePicture"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/profilePicture"
       tools:text="@tools:sample/full_names"/>
 
   <com.google.android.material.button.MaterialButton
       android:id="@+id/logout"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/spacing_normal"
       android:layout_marginTop="@dimen/spacing_normal"
       android:text="@string/logout"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/profilePicture"/>
+      app:layout_constraintTop_toBottomOf="@id/nameText"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

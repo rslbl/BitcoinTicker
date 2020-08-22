@@ -1,6 +1,7 @@
 package net.resulbal.bitcointicker.ui.main
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -25,9 +26,16 @@ class MainActivity: BaseActivity() {
     super.onCreate(savedInstanceState)
     setContentView(layout.activity_main)
     setSupportActionBar(toolbar)
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    supportActionBar?.setDisplayShowHomeEnabled(true)
 
     navController = findNavController(R.id.fragmentContainer)
     setupActionBarWithNavController(navController, AppBarConfiguration(fragmentList))
     bottomNavigationView.setupWithNavController(navController)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    navController.popBackStack()
+    return super.onOptionsItemSelected(item)
   }
 }

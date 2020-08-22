@@ -10,11 +10,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_coin_list.coinList
+import kotlinx.android.synthetic.main.fragment_coin_list.searchInputLayout
 import kotlinx.android.synthetic.main.fragment_coin_list.shimmerLayout
 import net.resulbal.bitcointicker.R
 import net.resulbal.bitcointicker.data.model.CoinDetail
 import net.resulbal.bitcointicker.data.source.ApiResult
 import net.resulbal.bitcointicker.di.ViewModelFactory
+import net.resulbal.bitcointicker.extensions.doOnTextChanged
 import net.resulbal.bitcointicker.ui.base.BaseEvent
 import net.resulbal.bitcointicker.ui.base.BaseFragment
 import net.resulbal.bitcointicker.util.addItemSpacing
@@ -55,16 +57,21 @@ class CoinListFragment: BaseFragment(), CoinListView.View {
         }
         is ApiResult.Success -> {
           hideShimmer()
+          searchInputLayout?.isVisible = true
           coinListAdapter.submitList(result.data)
         }
       }
     })
+
+    searchInputLayout.editText?.doOnTextChanged { viewModel.search(it) }
+
+    viewModel.start()
   }
 
   override fun dispatch(event: BaseEvent) {
     when (event) {
       is CoinListEvent.GoToCoin -> {
-        val state = CoinDetail(id = event.coin.id)
+        val state = CoinDetail(id = event.coin.id, favorite = event.coin.favorite)
         findNavController().navigate(CoinListFragmentDirections.goToCoinDetail(state))
       }
       is CoinListEvent.Update -> viewModel.updateFavorite(event.coin)

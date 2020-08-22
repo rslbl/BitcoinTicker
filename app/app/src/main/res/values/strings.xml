@@ -1,13 +1,17 @@
 <resources>
 
   <string name="app_name">Bitcoin Ticker</string>
-  <string name="login">Login</string>
+  <string name="login">LOGIN</string>
   <string name="home">Home</string>
   <string name="coin_list">Coin List</string>
   <string name="favorites">Favorites</string>
   <string name="profile">Profile</string>
   <string name="logout">Logout</string>
   <string name="detail">Detail</string>
-  <string name="add_favorite">Add Favorite</string>
-  <string name="remove_favorite">Remove Favorite</string>
+  <string name="add_favorite">ADD FAVORITE</string>
+  <string name="remove_favorite">REMOVE FAVORITE</string>
+  <string name="search">Search (Symbol)</string>
+  <string name="refresh_time">Refresh Time (Second)</string>
+  <string name="SET">SET</string>
+
 </resources>

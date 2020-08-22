@@ -17,6 +17,7 @@ data class CoinDetail(
   @field:SerializedName("description") val description: CoinDescription? = null,
   @field:SerializedName("image") val image: Image? = null,
   @field:SerializedName("market_data") val marketData: MarketData? = null,
+  val favorite: Boolean = false
 ): BaseState
 
 @Parcelize

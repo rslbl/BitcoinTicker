@@ -35,11 +35,13 @@ class FavoriteViewModel @Inject constructor(
   }
 
   override fun updateFavorite(coin: Coin) {
-    FirestoreUtil.addOrDeleteFavorites(coin) {
-      _favoriteList.value?.let { result ->
-        when (result) {
-          is ApiResult.Success -> {
-            _favoriteList.postValue(result.data.toResult())
+    launch {
+      FirestoreUtil.addOrDeleteFavorites(coin) {
+        _favoriteList.value?.let { result ->
+          when (result) {
+            is ApiResult.Success -> {
+              _favoriteList.postValue(result.data.toResult())
+            }
           }
         }
       }

@@ -20,6 +20,8 @@ interface CoinListView {
     fun start()
 
     fun updateFavorite(coin: Coin)
+
+    fun search(searchText: String?)
   }
 
 }

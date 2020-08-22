@@ -82,7 +82,7 @@ object FirestoreUtil {
             .delete()
             .addOnSuccessListener { onComplete() }
         } else {
-          val newCoin = coin.copy(favorite = !coin.favorite)
+          val newCoin = coin.copy(favorite = true)
           currentUserDocRef.collection(FAVORITES)
             .document(coin.id)
             .set(newCoin)

@@ -6,7 +6,7 @@ import kotlinx.coroutines.launch
 import net.resulbal.bitcointicker.data.model.Coin
 import net.resulbal.bitcointicker.data.source.ApiResult
 import net.resulbal.bitcointicker.data.source.BitcoinRepository
-import net.resulbal.bitcointicker.extensions.updated
+import net.resulbal.bitcointicker.data.source.toResult
 import net.resulbal.bitcointicker.ui.base.BaseViewModel
 import net.resulbal.bitcointicker.util.FirestoreUtil
 import javax.inject.Inject
@@ -23,31 +23,27 @@ class CoinListViewModel @Inject constructor(
   val coinList: LiveData<ApiResult<List<Coin>>>?
     get() = _coinList
 
+  private val _responseList = MutableLiveData<ApiResult<List<Coin>>>()
+  val responseList: LiveData<ApiResult<List<Coin>>>?
+    get() = _responseList
+
   private val _favoriteList = MutableLiveData<List<Coin>>()
   val favoriteList: LiveData<List<Coin>>?
     get() = _favoriteList
 
-  init {
-    start()
-  }
-
   override fun start() {
-    launch {
-      _coinList.postValue(ApiResult.Loading)
-      FirestoreUtil.getFavoriteList {
-        _favoriteList.postValue(it)
-        getList()
-      }
-    }
+    launch { FirestoreUtil.getFavoriteList { _favoriteList.postValue(it); getList() } }
   }
 
   private fun getList() {
     launch {
+      _coinList.postValue(ApiResult.Loading)
       val response = repository.getList()
       when (response) {
         is ApiResult.Success -> {
-          val responseList = response.data.map { it.updateSelection() }
-          _coinList.postValue(ApiResult.Success(responseList))
+          val list = response.data.map { it.updateSelection() }
+          _responseList.postValue(list.toResult())
+          _coinList.postValue(list.toResult())
         }
       }
     }
@@ -59,7 +55,22 @@ class CoinListViewModel @Inject constructor(
         when (result) {
           is ApiResult.Success -> {
             val list = result.data.map { it.updateSelection() }
-            _coinList.postValue(ApiResult.Success(list))
+            _coinList.postValue(list.toResult())
+          }
+        }
+      }
+    }
+  }
+
+  override fun search(searchText: String?) {
+    if (searchText.isNullOrEmpty()) {
+      _coinList.postValue(_responseList.value)
+    } else {
+      _responseList.value.let { result ->
+        when (result) {
+          is ApiResult.Success -> {
+            val searchList = result.data.filter { it.symbol.contains(searchText) }
+            _coinList.postValue(searchList.toResult())
           }
         }
       }

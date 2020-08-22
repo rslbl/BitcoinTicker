@@ -25,7 +25,11 @@
 
   <action
       android:id="@+id/goToCoinDetail"
-      app:destination="@id/coinDetailFragment"/>
+      app:destination="@id/coinDetailFragment"
+      app:enterAnim="@anim/enter_from_right"
+      app:exitAnim="@anim/exit_to_left"
+      app:popEnterAnim="@anim/enter_from_left"
+      app:popExitAnim="@anim/exit_to_right"/>
   <fragment
       android:id="@+id/coinDetailFragment"
       android:name="net.resulbal.bitcointicker.ui.coinDetail.CoinDetailFragment"
